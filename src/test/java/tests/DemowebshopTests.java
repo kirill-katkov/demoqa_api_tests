@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static helpers.CustomApiListener.withCustomTemplates;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
+@Tag("demoweb")
 public class DemowebshopTests extends TestBase {
 //    static String login = "qaguru@qa.guru",
 //            password = "qaguru@qa.guru1",

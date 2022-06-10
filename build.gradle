@@ -50,3 +50,9 @@ dependencies {
 tasks.withType(Test) {
     useJUnitPlatform()
 }
+
+task demoweb(type: Test) {
+    useJUnitPlatform {
+        includeTags "demoweb"
+    }
+}
