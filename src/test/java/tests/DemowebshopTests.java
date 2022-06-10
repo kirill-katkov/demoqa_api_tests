@@ -27,19 +27,6 @@ public class DemowebshopTests extends TestBase {
             password  = userConfig.userPassword(),
             authCookieName = "NOPCOMMERCE.AUTH";
 
-    @BeforeAll
-    static void configure() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-
-        Configuration.baseUrl = "http://demowebshop.tricentis.com";
-        RestAssured.baseURI = "http://demowebshop.tricentis.com";
-    }
-
-    @AfterEach
-    void afterEach() {
-        closeWebDriver();
-    }
-
     @Test
     @Tag("demowebshop")
     @DisplayName("Successful authorization to some demowebshop (UI)")
