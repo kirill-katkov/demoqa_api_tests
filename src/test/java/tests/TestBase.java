@@ -8,6 +8,7 @@ import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import owner.LinksConfigOwner;
 import owner.RemoteConfigOwner;
 
@@ -25,6 +26,11 @@ public class TestBase {
         String propertyBrowserSize = System.getProperty("browserSize", "1980x1024"),
                 propertyRemoteUrl = System.getProperty("remoteUrl", confRemote.url());
 
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
 
         Configuration.browserSize = propertyBrowserSize;
         Configuration.remote = propertyRemoteUrl;
