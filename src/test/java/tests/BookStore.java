@@ -37,13 +37,13 @@ public class BookStore extends TestBase {
 //godinew9
     //565656qqA!
     //{"userId":"293ed243-0866-49a8-a620-96af443e66f7","username":"godinew9",
-    @BeforeAll
-    static void beforeAll() {
-        RestAssured.baseURI = "https://demoqa.com";
-        System.setProperty("com.sun.security.enableAIAcaIssuers", "true");
-        String certificatesTrustStorePath = "<JAVA HOME>/jre/lib/security/cacerts";
-        System.setProperty("javax.net.ssl.trustStore", certificatesTrustStorePath);
-    }
+//    @BeforeAll
+//    static void beforeAll() {
+//        RestAssured.baseURI = "https://demoqa.com";
+//        System.setProperty("com.sun.security.enableAIAcaIssuers", "true");
+//        String certificatesTrustStorePath = "<JAVA HOME>/jre/lib/security/cacerts";
+//        System.setProperty("javax.net.ssl.trustStore", certificatesTrustStorePath);
+//    }
 
 
     @Test
