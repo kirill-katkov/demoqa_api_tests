@@ -38,7 +38,8 @@ public class BookStore {
 //godinew9
     //565656qqA!
     //{"userId":"293ed243-0866-49a8-a620-96af443e66f7","username":"godinew9",
-//    @BeforeAll
+
+@BeforeAll
     static void beforeAll() {
         RestAssured.baseURI = "https://demoqa.com";
         System.setProperty("com.sun.security.enableAIAcaIssuers", "true");
