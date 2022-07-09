@@ -30,20 +30,21 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 
 import static org.hamcrest.Matchers.*;
+
 @Tag("bookStore")
-public class BookStore extends TestBase {
+public class BookStore {
     static Credentials credentials = new Credentials();
 
 //godinew9
     //565656qqA!
     //{"userId":"293ed243-0866-49a8-a620-96af443e66f7","username":"godinew9",
 //    @BeforeAll
-//    static void beforeAll() {
-//        RestAssured.baseURI = "https://demoqa.com";
-//        System.setProperty("com.sun.security.enableAIAcaIssuers", "true");
-//        String certificatesTrustStorePath = "<JAVA HOME>/jre/lib/security/cacerts";
-//        System.setProperty("javax.net.ssl.trustStore", certificatesTrustStorePath);
-//    }
+    static void beforeAll() {
+        RestAssured.baseURI = "https://demoqa.com";
+        System.setProperty("com.sun.security.enableAIAcaIssuers", "true");
+        String certificatesTrustStorePath = "<JAVA HOME>/jre/lib/security/cacerts";
+        System.setProperty("javax.net.ssl.trustStore", certificatesTrustStorePath);
+    }
 
 
     @Test
