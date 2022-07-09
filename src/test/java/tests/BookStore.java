@@ -30,6 +30,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 
 import static org.hamcrest.Matchers.*;
+@Tag("bookStore")
 public class BookStore extends TestBase {
     static Credentials credentials = new Credentials();
 
@@ -46,6 +47,7 @@ public class BookStore extends TestBase {
 
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /BookStore/v1/Books")
     @Description("Проверка запроса - список книг.  Код ответа")
     void getBooks() {
@@ -61,6 +63,7 @@ public class BookStore extends TestBase {
     }
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /Account/v1/User")
     @Description("Проверка существующего пользователя")
     void checkUserExists() {
@@ -86,6 +89,7 @@ public class BookStore extends TestBase {
 
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /Account/v1/User/UUID")
     @Description("Проверка неавторизованного пользователя ")
     void getBook33() {
@@ -106,6 +110,7 @@ public class BookStore extends TestBase {
 
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /Account/v1/Login")
     @Description("Проверка авторизации с корректными данными")
     void authSuccess() {
@@ -129,6 +134,7 @@ public class BookStore extends TestBase {
 
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /Account/v1/GenerateToken")
     @Description("Проверка авторизации с не существующим UserName")
     void authUserInvalid() {
@@ -153,6 +159,7 @@ public class BookStore extends TestBase {
 
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /Account/v1/Authorized")
     @Description("Проверка авторизации с не существующим UserName")
     void authUserInvalid2() {
@@ -176,6 +183,7 @@ public class BookStore extends TestBase {
     }
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /Account/v1/Authorized")
     @Description("Проверка авторизации с некорректным паролем")
     void authInvalidPassword() {;
@@ -200,6 +208,7 @@ public class BookStore extends TestBase {
 
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /BookStore/v1/Book")
     @Description("Проверка запроса с заданным параметром ISBN=9781449325862. " +
             "Код ответа. Проверка параметра Title"
@@ -225,6 +234,7 @@ public class BookStore extends TestBase {
 
 
     @Test
+    @Tag("bookStore")
     @DisplayName("Запрос /BookStore/v1/Book")
     @Description("Проверка запроса с заданным параметром ISBN=9781449325862. " +
             "Код ответа. Проверка всех параметров в ответе"
