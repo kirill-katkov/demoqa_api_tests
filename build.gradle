@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id "io.qameta.allure" version "2.9.6"
+    id "io.freefair.lombok" version "6.0.0-m2"
 }
 
 repositories {
@@ -43,7 +44,8 @@ dependencies {
             'com.google.code.gson:gson:2.8.9',
             'com.github.javafaker:javafaker:1.0.2',
             "com.codeborne:selenide:$selenideVersion",
-            "com.github.javafaker:javafaker:$fakerVersion"
+            "com.github.javafaker:javafaker:$fakerVersion",
+            "org.assertj:assertj-core:3.22.0"
     )
 }
 
