@@ -68,3 +68,9 @@ task demoweb(type: Test) {
         includeTags "demoweb"
     }
 }
+
+task bookStore(type: Test) {
+    useJUnitPlatform {
+        includeTags "bookStore"
+    }
+}
