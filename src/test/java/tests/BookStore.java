@@ -101,32 +101,6 @@ public class BookStore extends TestBase{
                 .log().all();
     }
 
-
-    @Test
-    @Tag("bookStore")
-    @DisplayName("Проверка авторизации с не существующим UserName - GenerateToken")
-    @Description("Запрос- /Account/v1/GenerateToken")
-    void authUserInvalid() {
-        credentials.setUserName(userdata.getUsernameFalse());
-        credentials.setPassword(userdata.getPassword());
-
-        given()
-                .filter(withCustomTemplates())
-                .log().uri()
-                .log().body()
-                .contentType(JSON)
-                .body(credentials)
-                .when()
-                .post("/Account/v1/GenerateToken")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("result", is("User authorization failed."))
-           .body("status", is("Failed"));
-    }
-
-
     @Test
     @Tag("bookStore")
     @DisplayName("Проверка авторизации с не существующим UserName - Authorized")
@@ -179,8 +153,7 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Проверка запроса с параметром ISBN=9781449325862. " +
-            "Код ответа и проверка Title"
+    @DisplayName("Проверка запроса с параметром и проверка Title"
     )
     @Description("Запрос /BookStore/v1/Book")
     void getBookParameter() {
@@ -204,8 +177,7 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Проверка запроса с параметром ISBN=9781449325862. " +
-            "Код ответа и проверка всех параметров в ответе"
+    @DisplayName("Проверка запроса с параметром  и проверка всех параметров в ответе"
     )
     @Description("Запрос /BookStore/v1/Book")
     void getBookAllParameter() {
