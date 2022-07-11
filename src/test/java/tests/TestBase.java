@@ -16,34 +16,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class TestBase {
     @BeforeAll
     static void setUp() {
-        LinksConfigOwner linkConfig= ConfigFactory.create(LinksConfigOwner.class);
-
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        Configuration.baseUrl = linkConfig.uiURL();
-        RestAssured.baseURI = linkConfig.apiURI();
-        RemoteConfigOwner confRemote = ConfigFactory.create(RemoteConfigOwner.class);
-
-        String propertyBrowserSize = System.getProperty("browserSize", "1980x1024"),
-                propertyRemoteUrl = System.getProperty("remoteUrl", confRemote.url());
-
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
-
-        Configuration.browserSize = propertyBrowserSize;
-        Configuration.remote = propertyRemoteUrl;
-
+        RestAssured.baseURI = "https://demoqa.com/";
+        Configuration.baseUrl = "https://demoqa.com/";
     }
-
-    @AfterEach
-    void afterEach() {
-        Attach.screenshotAs("Скриншот выполненного теста");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
-        Attach.addVideo();
-        closeWebDriver();
-    }
-
 }
