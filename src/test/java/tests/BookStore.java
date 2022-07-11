@@ -1,5 +1,6 @@
 package tests;
 
+import data.UserData;
 import io.qameta.allure.Description;
 import models.Credentials;
 import models.GetBook;
@@ -16,11 +17,12 @@ import static org.hamcrest.Matchers.is;
 @Tag("bookStore")
 public class BookStore extends TestBase{
     static Credentials credentials = new Credentials();
+    static UserData userdata = new UserData();
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /BookStore/v1/Books")
-    @Description("Проверка запроса - список книг.  Код ответа")
+    @DisplayName("Проверка списка книг. Код ответа 200")
+    @Description("Запрос - /BookStore/v1/Books")
     void getBooks() {
         given()
                 .filter(withCustomTemplates())
@@ -35,12 +37,11 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /Account/v1/User")
-    @Description("Проверка существующего пользователя")
+    @DisplayName("Проверка существования пользователя")
+    @Description("Запрос - /Account/v1/User")
     void checkUserExists() {
-        credentials.setUserName("godinew9");
-        credentials.setPassword("565656qqA!");
-
+        credentials.setUserName(userdata.getUsername());
+        credentials.setPassword(userdata.getPassword());
         given()
                 .filter(withCustomTemplates())
                 .log().uri()
@@ -61,17 +62,15 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /Account/v1/User/UUID")
-    @Description("Проверка неавторизованного пользователя ")
-    void getBook33() {
-        String idBook = "293ed243-0866-49a8-a620-96af443e66f7";
-
+    @DisplayName("Проверка неавторизованного пользователя")
+    @Description("Запрос - /Account/v1/User/UUID")
+    void getUserUUID() {
         GetBook getBookResponse =
                 given()
                         .filter(withCustomTemplates())
                         .log().uri()
                         .log().body()
-                        .get("/Account/v1/User/UUID={idBook}", idBook)
+                        .get("/Account/v1/User/UUID={idBook}", userdata.getUserId())
                         .then()
                         .log().status()
                         .log().body()
@@ -82,12 +81,11 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /Account/v1/Login")
-    @Description("Проверка авторизации с корректными данными")
+    @DisplayName("Проверка авторизации с корректными данными")
+    @Description("Запрос - /Account/v1/Login")
     void authSuccess() {
-        credentials.setUserName("godinew9");
-        credentials.setPassword("565656qqA!");
-
+        credentials.setUserName(userdata.getUsername());
+        credentials.setPassword(userdata.getPassword());
         given()
                 .filter(withCustomTemplates())
                 .log().uri()
@@ -106,11 +104,11 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /Account/v1/GenerateToken")
-    @Description("Проверка авторизации с не существующим UserName")
+    @DisplayName("Проверка авторизации с не существующим UserName - GenerateToken")
+    @Description("Запрос- /Account/v1/GenerateToken")
     void authUserInvalid() {
-        credentials.setUserName("godinew945");
-        credentials.setPassword("565656qqA!");
+        credentials.setUserName(userdata.getUsernameFalse());
+        credentials.setPassword(userdata.getPassword());
 
         given()
                 .filter(withCustomTemplates())
@@ -131,11 +129,11 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /Account/v1/Authorized")
-    @Description("Проверка авторизации с не существующим UserName")
+    @DisplayName("Проверка авторизации с не существующим UserName - Authorized")
+    @Description("Запрос /Account/v1/Authorized")
     void authUserInvalid2() {
-        credentials.setUserName("godinew945");
-        credentials.setPassword("565656qqA!");
+        credentials.setUserName(userdata.getUsernameFalse());
+        credentials.setPassword(userdata.getPassword());
 
         given()
                 .filter(withCustomTemplates())
@@ -153,13 +151,14 @@ public class BookStore extends TestBase{
                 .body("code", is("1207"));
     }
 
+
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /Account/v1/Authorized")
-    @Description("Проверка авторизации с некорректным паролем")
+    @DisplayName("Проверка авторизации с некорректным паролем")
+    @Description("Запрос - /Account/v1/Authorized")
     void authInvalidPassword() {;
-        credentials.setUserName("godinew9");
-        credentials.setPassword("565656wewq");
+        credentials.setUserName(userdata.getUsername());
+        credentials.setPassword(userdata.getInvalidPassword());
 
         given()
                 .filter(withCustomTemplates())
@@ -180,52 +179,49 @@ public class BookStore extends TestBase{
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /BookStore/v1/Book")
-    @Description("Проверка запроса с заданным параметром ISBN=9781449325862. " +
-            "Код ответа. Проверка параметра Title"
+    @DisplayName("Проверка запроса с параметром ISBN=9781449325862. " +
+            "Код ответа и проверка Title"
     )
+    @Description("Запрос /BookStore/v1/Book")
     void getBookParameter() {
-        String idBook = "9781449325862";
 
         GetBook getBookResponse =
                 given()
                         .filter(withCustomTemplates())
                         .log().uri()
                         .log().body()
-                        .get("/BookStore/v1/Book?ISBN={idBook}", idBook)
+                        .get("/BookStore/v1/Book?ISBN={idBook}", userdata.getIdBook())
                         .then()
                         .log().status()
                         .log().body()
                         .statusCode(200)
                         .extract().as(GetBook.class);
 
-        assertThat(getBookResponse.getIsbn()).isEqualTo(idBook);
+        assertThat(getBookResponse.getIsbn()).isEqualTo(userdata.getIdBook());
         assertThat(getBookResponse.getTitle()).isEqualTo("Git Pocket Guide");
     }
 
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Запрос /BookStore/v1/Book")
-    @Description("Проверка запроса с заданным параметром ISBN=9781449325862. " +
-            "Код ответа. Проверка всех параметров в ответе"
+    @DisplayName("Проверка запроса с параметром ISBN=9781449325862. " +
+            "Код ответа и проверка всех параметров в ответе"
     )
+    @Description("Запрос /BookStore/v1/Book")
     void getBookAllParameter() {
-        String idBook = "9781449325862";
-
         GetBook getBookResponse =
                 given()
                         .filter(withCustomTemplates())
                         .log().uri()
                         .log().body()
-                        .get("/BookStore/v1/Book?ISBN={idBook}", idBook)
+                        .get("/BookStore/v1/Book?ISBN={idBook}", userdata.getIdBook())
                         .then()
                         .log().status()
                         .log().body()
                         .statusCode(200)
                         .extract().as(GetBook.class);
 
-        assertThat(getBookResponse.getIsbn()).isEqualTo(idBook);
+        assertThat(getBookResponse.getIsbn()).isEqualTo(userdata.getIdBook());
         assertThat(getBookResponse.getTitle()).isEqualTo("Git Pocket Guide");
         assertThat(getBookResponse.getSubTitle()).isEqualTo("A Working Introduction");
 
