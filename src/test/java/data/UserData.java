@@ -7,7 +7,6 @@ public class UserData {
     private final String invalidPassword = "565656wewq";
     private final String userId = "293ed243-0866-49a8-a620-96af443e66f7";
     private final String idBook = "9781449325862";
-
     private final String bookTitle = "Git Pocket Guide";
     private final String bookSubTitle = "A Working Introduction";
     private final String bookAuthor = "Richard E. Silverman";
