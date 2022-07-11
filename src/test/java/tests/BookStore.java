@@ -1,48 +1,21 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Description;
-import io.qameta.allure.restassured.AllureRestAssured;
-import io.qameta.allure.selenide.AllureSelenide;
-import io.restassured.RestAssured;
 import models.Credentials;
 import models.GetBook;
-import org.aeonbits.owner.ConfigFactory;
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.Cookie;
-import owner.UserConfigOwner;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
-import static helpers.CustomApiListener.withCustomTemplates;
-import static io.qameta.allure.Allure.step;
-import static io.restassured.RestAssured.given;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static helpers.CustomApiListener.withCustomTemplates;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
-
-import static org.hamcrest.Matchers.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @Tag("bookStore")
 public class BookStore extends TestBase{
     static Credentials credentials = new Credentials();
-
-//@BeforeAll
-//    static void beforeAll() {
-//        RestAssured.baseURI = "https://demoqa.com";
-//        System.setProperty("com.sun.security.enableAIAcaIssuers", "true");
-//        String certificatesTrustStorePath = "<JAVA HOME>/jre/lib/security/cacerts";
-//        System.setProperty("javax.net.ssl.trustStore", certificatesTrustStorePath);
-//    }
-
 
     @Test
     @Tag("bookStore")
