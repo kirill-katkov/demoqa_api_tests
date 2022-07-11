@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @Tag("bookStore")
-public class BookStore extends TestBase{
+public class BookStore extends TestBase {
     static Credentials credentials = new Credentials();
     static UserData userdata = new UserData();
 
@@ -59,7 +59,6 @@ public class BookStore extends TestBase{
     }
 
 
-
     @Test
     @Tag("bookStore")
     @DisplayName("Проверка неавторизованного пользователя")
@@ -101,6 +100,7 @@ public class BookStore extends TestBase{
                 .log().all();
     }
 
+
     @Test
     @Tag("bookStore")
     @DisplayName("Проверка авторизации с не существующим UserName - Authorized")
@@ -130,7 +130,7 @@ public class BookStore extends TestBase{
     @Tag("bookStore")
     @DisplayName("Проверка авторизации с некорректным паролем")
     @Description("Запрос - /Account/v1/Authorized")
-    void authInvalidPassword() {;
+    void authInvalidPassword() {
         credentials.setUserName(userdata.getUsername());
         credentials.setPassword(userdata.getInvalidPassword());
 
@@ -171,7 +171,7 @@ public class BookStore extends TestBase{
                         .extract().as(GetBook.class);
 
         assertThat(getBookResponse.getIsbn()).isEqualTo(userdata.getIdBook());
-        assertThat(getBookResponse.getTitle()).isEqualTo("Git Pocket Guide");
+        assertThat(getBookResponse.getTitle()).isEqualTo(userdata.getBookTitle());
     }
 
 
@@ -194,17 +194,13 @@ public class BookStore extends TestBase{
                         .extract().as(GetBook.class);
 
         assertThat(getBookResponse.getIsbn()).isEqualTo(userdata.getIdBook());
-        assertThat(getBookResponse.getTitle()).isEqualTo("Git Pocket Guide");
-        assertThat(getBookResponse.getSubTitle()).isEqualTo("A Working Introduction");
-
-        assertThat(getBookResponse.getAuthor()).isEqualTo("Richard E. Silverman");
-        assertThat(getBookResponse.getPublish_date()).isEqualTo("2020-06-04T08:48:39.000Z");
-        assertThat(getBookResponse.getPublisher()).isEqualTo("O'Reilly Media");
-        assertThat(getBookResponse.getPages()).isEqualTo("234");
-        assertThat(getBookResponse.getDescription()).isEqualTo("This pocket guide is the perfect on-the-job companion to Git, the distributed version control system. It provides a compact, readable introduction to Git for new users, as well as a reference to common commands and procedures for those of you with Git exp");
-        assertThat(getBookResponse.getPages()).isEqualTo("234");
-        assertThat(getBookResponse.getWebsite()).isEqualTo("http://chimera.labs.oreilly.com/books/1230000000561/index.html");
+        assertThat(getBookResponse.getTitle()).isEqualTo(userdata.getBookTitle());
+        assertThat(getBookResponse.getSubTitle()).isEqualTo(userdata.getBookSubTitle());
+        assertThat(getBookResponse.getAuthor()).isEqualTo(userdata.getBookAuthor());
+        assertThat(getBookResponse.getPublish_date()).isEqualTo(userdata.getBookPublish_date());
+        assertThat(getBookResponse.getPublisher()).isEqualTo(userdata.getBookPublisher());
+        assertThat(getBookResponse.getPages()).isEqualTo(userdata.getBookPages());
+        assertThat(getBookResponse.getDescription()).isEqualTo(userdata.getBookDescription());
+        assertThat(getBookResponse.getWebsite()).isEqualTo(userdata.getBookWebsite());
     }
-
-
 }
