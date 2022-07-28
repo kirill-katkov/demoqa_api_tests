@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @Tag("bookStore")
-public class BookStore extends TestBase {
+public class BookStoreTests extends TestBase {
     static Credentials credentials = new Credentials();
     static UserData userdata = new UserData();
 
@@ -77,7 +77,6 @@ public class BookStore extends TestBase {
                         .extract().as(GetBook.class);
     }
 
-
     @Test
     @Tag("bookStore")
     @DisplayName("Проверка авторизации с корректными данными")
@@ -100,7 +99,6 @@ public class BookStore extends TestBase {
                 .log().all();
     }
 
-
     @Test
     @Tag("bookStore")
     @DisplayName("Проверка авторизации с не существующим UserName - Authorized")
@@ -108,7 +106,6 @@ public class BookStore extends TestBase {
     void authUserInvalid2() {
         credentials.setUserName(userdata.getUsernameFalse());
         credentials.setPassword(userdata.getPassword());
-
         given()
                 .filter(withCustomTemplates())
                 .log().uri()
@@ -124,7 +121,6 @@ public class BookStore extends TestBase {
                 .body("message", is("User not found!"))
                 .body("code", is("1207"));
     }
-
 
     @Test
     @Tag("bookStore")
@@ -133,7 +129,6 @@ public class BookStore extends TestBase {
     void authInvalidPassword() {
         credentials.setUserName(userdata.getUsername());
         credentials.setPassword(userdata.getInvalidPassword());
-
         given()
                 .filter(withCustomTemplates())
                 .log().uri()
@@ -150,14 +145,11 @@ public class BookStore extends TestBase {
                 .body("code", is("1207"));
     }
 
-
     @Test
     @Tag("bookStore")
-    @DisplayName("Проверка запроса с параметром и проверка Title"
-    )
+    @DisplayName("Проверка запроса с параметром и проверка Title")
     @Description("Запрос /BookStore/v1/Book")
     void getBookParameter() {
-
         GetBook getBookResponse =
                 given()
                         .filter(withCustomTemplates())
@@ -169,7 +161,6 @@ public class BookStore extends TestBase {
                         .log().body()
                         .statusCode(200)
                         .extract().as(GetBook.class);
-
         assertThat(getBookResponse.getIsbn()).isEqualTo(userdata.getIdBook());
         assertThat(getBookResponse.getTitle()).isEqualTo(userdata.getBookTitle());
     }
@@ -177,8 +168,7 @@ public class BookStore extends TestBase {
 
     @Test
     @Tag("bookStore")
-    @DisplayName("Проверка запроса с параметром  и проверка всех параметров в ответе"
-    )
+    @DisplayName("Проверка запроса с параметром  и проверка всех параметров в ответе")
     @Description("Запрос /BookStore/v1/Book")
     void getBookAllParameter() {
         GetBook getBookResponse =
@@ -192,7 +182,6 @@ public class BookStore extends TestBase {
                         .log().body()
                         .statusCode(200)
                         .extract().as(GetBook.class);
-
         assertThat(getBookResponse.getIsbn()).isEqualTo(userdata.getIdBook());
         assertThat(getBookResponse.getTitle()).isEqualTo(userdata.getBookTitle());
         assertThat(getBookResponse.getSubTitle()).isEqualTo(userdata.getBookSubTitle());

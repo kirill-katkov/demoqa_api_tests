@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class GetBook {
-
     private String isbn;
     private String title;
     private String subTitle;
